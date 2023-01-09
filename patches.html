@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+	
+<html lang="pt" class="translated-ltr">
+<head>
+<meta name="viewport" content="user-scalable=no">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<body class="html">
+</head>
+    <!-- meu css -->
+    <link href="" rel="stylesheet">
+    
+
+</head>
+</body>
+<style>
+body {
+    font-weight: bold;
+    font-size: 25px;
+	background-size: cover;
+	background-image: url(fundo);
+    background-repeat: no-repeat;
+}
+.collapsible {
+  font-family: serif;
+  font-weight: bold;
+  font-size: 30px;
+  border-radius: 10px 10px  10px  10px;
+  background-color: black;
+  color: white;
+  cursor: none;
+  padding: 18px;
+  width: 99%;
+  text-align: left;
+  outline: none;
+  padding-right: 8px;
+}
+.active, .collapsible:hover {
+  background-color: black;
+  border-radius: 10px 10px  0px  0px; 
+}
+
+.content {
+  border-radius: 0px 0px  10px  10px; 
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  font-size: 20px;
+  outline: none;
+  background-color: #f1f1f1;
+  border: 2px solid black;
+  width: 100%;
+  height: 300px;
+}
+.sair {
+  position: absolute;
+  left: 50px;
+  color: #fff;
+  padding: 10px 25px;
+  background-color: black;
+  background-image: radial-gradient(93% 87% at 87% 89%,
+  rgba(0, 0, 0, 0.23) 0%, transparent 86.18%),
+  radial-gradient(66% 66% at 26% 20%,
+  rgba(255, 255, 255, 0.55) 0%,
+  rgba(255, 255, 255, 0) 69.79%,
+  rgba(255, 255, 255, 0) 100%);
+  box-shadow: inset -3px -3px 9px
+  rgba(255, 255, 255, 0.25),
+  inset 0px 3px 9px
+  rgba(255, 255, 255, 0.3),
+  inset 0px 1px 1px
+  rgba(255, 255, 255, 0.6),
+  inset 0px -8px 36px
+  rgba(0, 0, 0, 0.3),
+  inset 0px 1px 5px
+  rgba(255, 255, 255, 0.6),
+  2px 19px 31px
+  rgba(0, 0, 0, 0.2);
+  border-radius: 14px;
+  font-weight: bold;
+  font-size: 30px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+
+  cursor: none;
+}
+h2 {
+	color: white;
+  }
+}
+</style>
+
+<button class="sair" onclick="window.close();">Voltar</a></button>
+<br></br><br></br><br></br><br></br>
+
+<center>
+<h2>Exemplo de patches personalizados</h2>
+</center>
+<br></br>
+
+<center>
+<button type="button" class="collapsible">Excluir diretório</button>
+
+<textarea class="content" readonly onKeyPress="txtLog_OnKeyPress(event)">
+
+[BEGIN]
+Autor desse patch: BruMarti
+[DELETE_FOLDER_IN_APK]
+
+{"name":"lib/armeabi-v7a"}
+{"name":"lib/armeabi-v7a"}
+
+[END]
+O diretório armeabi-v7a foi excluído!
+</textarea>
+<br>
+</br>
+
+<button type="button" class="collapsible">Excluir arquivos</button>
+<textarea class="content" readonly onKeyPress="txtLog_OnKeyPress(event)">
+
+[BEGIN]
+ Autor desse patch: BruMarti
+ Excluir arquivos ✓
+[DELETE_FILE_IN_APK]
+
+{"file_name":"res/raw/video_ads.css"}
+{"file_name":"res/raw/ads.css"}
+
+[END]
+Parabéns os arquivos video_ads.css e ads.css formam excluídos!
+</textarea>
+<br>
+</br>
+
+<button type="button" class="collapsible">Renomear arquivos</button>
+<textarea class="content" readonly onKeyPress="txtLog_OnKeyPress(event)">
+
+[BEGIN]
+[RENAME_FILE_IN_APK]
+
+{"file_name":"lib/armeabi-v7a/libcr3engine-3-2-X.so"}
+{"new_file_name":"lib/armeabi-v7a/temp.so"}
+
+[END]
+Parabéns o arquivo libcr3engine-3-2-X.so ganhou um novo nome!
+</textarea>
+</center>
+</br>
+
+<button type="button" class="collapsible">Substituição interna</button>
+<textarea style="height: 350px" class="content" readonly onKeyPress="txtLog_OnKeyPress(event)">
+
+[FILE_IN_APK]
+[BEGIN]
+•Substituir exemplo por texto
+
+{"name":"assets/bin/Data/Managed/O7SharpCompress.dll"}
+{"original":"65 78 65 6D 70 6C 6F "}
+{"replaced":"74 65 78 74 6F ?? ??"}
+
+[END]
+Parabéns o exemplo foi substituído!
+
+</textarea>
+</center>
+<br>
+</br>
+
+<button type="button" class="collapsible">Substituir arquivo classes.dex</button>
+<textarea class="content" readonly onKeyPress="txtLog_OnKeyPress(event)">
+
+[BEGIN]
+•Substituir arquivo classes.dex pelo modificado!
+[ADD_FILE_IN_APK]
+
+{"file_name":"classes.dex"}
+{"to":"classes.dex"}
+
+[END]
+Parabéns arquivo classes.dex foi substituído!
+</textarea>
+</center>
+<br>
+</br>
+<br>
+</br>
+<br>
+</br>
+
+<script Language="Javascript">
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+//Lidar com teclas pressionadas.
+function txtLog_OnKeyPress() {
+{ 
+    }
+}
+</script>
+<br>
+</br>
+
+</body>
+</html>
